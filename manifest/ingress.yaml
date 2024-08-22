@@ -12,9 +12,9 @@ spec:
                     pathType: Prefix
                     backend:
                         service:
-                            name: longhorn-ui
+                            name: longhorn-frontend
                             port:
-                                number: 8000
+                                number: 80
 
     tls:
         - hosts:
