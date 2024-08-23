@@ -1,12 +1,24 @@
-apiVersion: storage.k8s.io/v1
 kind: StorageClass
+apiVersion: storage.k8s.io/v1
 metadata:
   name: longhorn
 provisioner: driver.longhorn.io
+allowVolumeExpansion: true
 parameters:
-  numberOfReplicas: "3"   # The number of replicas for each volume
-  staleReplicaTimeout: "30" # Timeout in minutes for a stale replica
-  fromBackup: ""           # Restore from a backup URL if needed
-reclaimPolicy: Retain      # Or use Delete if you want volumes to be deleted when PVC is deleted
-allowVolumeExpansion: true # Allow resizing of the volume
-volumeBindingMode: Immediate
+  numberOfReplicas: "3"
+  staleReplicaTimeout: "2880" # 48 hours in minutes
+  fromBackup: ""
+  fsType: "ext4"
+#  mkfsParams: "-I 256 -b 4096 -O ^metadata_csum,^64bit"
+#  diskSelector: "ssd,fast"
+#  nodeSelector: "storage,fast"
+#  recurringJobSelector: '[
+#   {
+#     "name":"snap",
+#     "isGroup":true,
+#   },
+#   {
+#     "name":"backup",
+#     "isGroup":false,
+#   }
+#  ]'
